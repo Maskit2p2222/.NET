@@ -1,0 +1,282 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Temp.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="Css/MainCSS.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" rel="stylesheet" />
+</head>
+<body>
+    <form runat="server" style="padding-top: 0px">
+
+        <div runat="server" id="MasterNavBar" class='nav position' style="margin-bottom: 1%" visible="false">
+            <asp:Menu runat="server" class='nav' ID="MasterMenu" Orientation="Horizontal">
+                <StaticMenuStyle />
+                <LevelMenuItemStyles>
+                    <asp:MenuItemStyle HorizontalPadding="30" />
+                </LevelMenuItemStyles>
+                <StaticMenuItemStyle HorizontalPadding="30" />
+                <DynamicMenuItemStyle CssClass="nav-link" />
+            </asp:Menu>
+            <asp:Button ID="Button1" runat="server" Visible="false" CssClass="btn btn-outline-success my-2 my-sm-0 buttonPadding" Text="Log Out" OnClick="SignOut_Click" />
+        </div>
+        <asp:Image runat="server" ID="LogoImage" ImageUrl="~/Images/Logo.png" CssClass="Image" />
+        <a align="right" style="position: fixed; z-index: 99; padding-left: 10px; padding-top: 12px; color: white">@Myalik Anton Sergeevich</a>
+        <a align="right" style="position: fixed; z-index: 99; padding-left: 10px; padding-top: 35px; color: white">maskit2p2222@gmail.com</a>
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+            </Scripts>
+        </asp:ScriptManager>
+
+
+        <div class="containerSoft body-content margins">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p align="center">&copy; <%: DateTime.Now.Day %>/<%: DateTime.Now.Month %>/<%: DateTime.Now.Year %>- My VinDecoder Application</p>
+            </footer>
+        </div>
+    </form>
+    <script>
+        $(function () {
+            if ($('.nav>ul>li').hasClass('selected')) {
+                $('.selected').addClass('active');
+                var currentleft = $('.selected').position().left + "px";
+                var currentwidth = $('.selected').css('width');
+                $('.lamp').css({ "left": currentleft, "width": currentwidth });
+            }
+            else {
+                $('.nav>ul>li').first().addClass('active');
+                var currentleft = $('.active').position().left + "px";
+                var currentwidth = $('.active').css('width');
+                $('.lamp').css({ "left": currentleft, "width": currentwidth });
+            }
+            $('.nav>ul>li').hover(function () {
+                $('.nav ul li').removeClass('active');
+                $(this).addClass('active');
+                var currentleft = $('.active').position().left + "px";
+                var currentwidth = $('.active').css('width');
+                $('.lamp').css({ "left": currentleft, "width": currentwidth });
+            }, function () {
+                if ($('.nav>ul>li').hasClass('selected')) {
+                    $('.selected').addClass('active');
+                    var currentleft = $('.selected').position().left + "px";
+                    var currentwidth = $('.selected').css('width');
+                    $('.lamp').css({ "left": currentleft, "width": currentwidth });
+                }
+                else {
+                    $('.nav>ul>li').first().addClass('active');
+                    var currentleft = $('.active').position().left + "px";
+                    var currentwidth = $('.active').css('width');
+                    $('.lamp').css({ "left": currentleft, "width": currentwidth });
+                }
+            });
+        });
+    </script>
+    <style>
+        .Image {
+            padding-left: 15%;
+            height: 70px;
+            width: auto;
+            position: fixed;
+            z-index: 99;
+        }
+
+        body {
+            background: #ffffff;
+            padding: 0;
+        }
+
+        .position {
+            position: fixed;
+            width: 100%;
+            padding-left: 0;
+        }
+
+        .margins {
+            padding-top: 5%;
+        }
+
+        .containerSoft {
+            margin-left: 1em;
+            margin-right: 1em;
+        }
+
+        @import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700);
+
+        .buttonPadding {
+            margin-left: auto;
+            margin-right: 3%;
+        }
+
+        h1 {
+            font: 400 40px 'pt sans',sans-serif;
+            text-align: center;
+        }
+
+        .nav a {
+            text-decoration: dashed;
+        }
+
+        .nav {
+            height: 70px;
+            background: #000000;
+            position: fixed;
+            z-index: 98;
+            padding-left: 18%;
+            font-family: arial
+        }
+
+            .nav > ul {
+                position: relative;
+                list-style: none;
+                padding-left: 10;
+                margin: 0;
+            }
+
+                .nav > ul > li > ul {
+                    position: absolute;
+                    left: 0;
+                    padding: 0;
+                    margin: 0;
+                    list-style: none;
+                }
+
+            .nav ul li:hover {
+                background: #121212;
+            }
+
+            .nav > ul > li:hover > ul li a {
+                opacity: 1;
+                height: 50px;
+                transition: all .3s linear;
+                -o-transition: all .3s linear;
+                -moz-transition: all .3s linear;
+                -webkit-transition: all .3s linear;
+            }
+
+            .nav > ul > li > ul a {
+                display: block;
+                color: #222;
+                width: 150px;
+                line-height: 50px !important;
+                font: 700 17px arial;
+                background: #eee;
+                border-bottom: 1px solid #ddd;
+                text-align: center;
+                padding: 0 5px;
+                height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: all .3s linear .2s;
+                -o-transition: all .3s linear .2s;
+                -moz-transition: all .3s linear .2s;
+                -webkit-transition: all .3s linear .2s;
+            }
+
+            .nav > ul > li {
+                float: left;
+                position: relative;
+            }
+
+                .nav > ul > li > a {
+                    padding: 0 20px;
+                    color: #fff;
+                    display: block;
+                    line-height: 70px !important;
+                    font: 400 20px arial;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                }
+
+        .lamp span {
+            display: block;
+            height: 4px;
+            background: #ee6666;
+            position: relative;
+        }
+
+            .lamp span:after {
+                bottom: 100%;
+                left: 50%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-color: rgba(238, 102, 102, 0);
+                border-bottom-color: #ee6666;
+                border-width: 4px;
+                margin-left: -4px;
+            }
+
+        .lamp {
+            position: absolute !important;
+            height: 4px;
+            top: 66px;
+            background: #333;
+            transition: all .3s linear;
+            -o-transition: all .3s linear;
+            -moz-transition: all .3s linear;
+            -webkit-transition: all .3s linear;
+        }
+
+        .selected.active > a, .active > a {
+            transition: all .3s linear;
+            -o-transition: all .3s linear;
+            -moz-transition: all .3s linear;
+            -webkit-transition: all .3s linear;
+            color: #fff;
+        }
+
+        .credit {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .blog-link {
+            color: #fff;
+            text-decoration: none;
+            background: #eee;
+            background-size: 40px;
+            line-height: 50px;
+            display: inline-block;
+            padding: 0 10px;
+            border-radius: 4px;
+            border-bottom: 3px solid #ddd;
+            color: #333;
+            font-family: 'open sans',sans-serif;
+            margin: 10px;
+        }
+    </style>
+</body>
+
+</html>
+
